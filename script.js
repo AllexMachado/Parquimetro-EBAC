@@ -1,12 +1,4 @@
-/*
-    Objeto - VagasEstacionamento
 
-    Atributos - Minutos e os Valores em Reais
-
-    Métodos - Converter a quantidade de minuto para reais
-
-    Instância - Carro no Estscionamento
-*/
 
 class Estacionamento{
     constructor(minutos, valor){
@@ -15,41 +7,25 @@ class Estacionamento{
     }
 
     Conversor(){
-        const min = Number.parseInt(document.getElementById("min").value)
-
-        if (min <= 5){
-            this.minutos = min
-            this.valor = 0
-            this.Updator(this.valor.value)
-        } else if (min <= 30){
-            this.minutos = min
-            this.valor = 1.00
-            this.Updator(this.valor.value)
-        } else if (min <= 60){
-            this.minutos = min
-            this.valor = 1.75
-            this.Updator(this.valor.value)
-        } else if (min <= 120){
-            this.minutos = min
-            this.valor = 3.00
-            this.Updator(this.valor.value)
-        } else {
-            this.minutos = min
-            this.Updator(this.minutos)
-        }
-    }
-
-    Updator(valorRes){
+        this.minutos = 0
+        this.valor = Number(document.getElementById("valor").value)
         let res = document.getElementById("res")
-        res.innerText = ``
-        if (this.minutos <= 5){
-            return res.innerText = 'Valor Insuficiente.'
-        } else if (this.minutos <= 120){
-            return res.innerText = `Valor: R$${this.valor.toFixed(2).replace(".", ",")}`
-        } else if (this.minutos > 120){
-            return res.innerText = 'Limite de tempo excedido!'
+        let troco = String(this.valor.toFixed(2)).split('.')
+        res.innerText = ''
+
+        if(this.valor < 1.00){
+            res.innerText = `Valor insuficente!`
+        } else {
+            if(this.valor > 1.00 && this.valor < 1.75){
+                res.innerHTML = `Com <strong>R$${this.valor.toFixed(2).replace(".", ",")}</strong> você tem direito a: <strong>30 - 60</strong> minutos no Estacionamento.`
+            } else if(this.valor >= 1.75 && this.valor < 3.00){
+                res.innerHTML = `Com <strong>R$${this.valor.toFixed(2).replace(".", ",")}</strong> você tem direito a: <strong>60 - 120</strong> minutos no Estacionamento.`
+            } else {
+                res.innerHTML = `Com <strong>R$${this.valor.toFixed(2).replace(".", ",")}</strong> você tem direito a mais que <strong>120</strong>min no Estacionamento.`
+            }
         }
     }
 }
+
 
 const vaga = new Estacionamento()

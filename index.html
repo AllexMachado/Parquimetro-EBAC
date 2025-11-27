@@ -14,14 +14,12 @@
         </header>
         <section>
                 <fieldset>
-                    <legend>Insíra quantos minutos que seu carro ficou no estacionamento:</legend>
-                    <p>Minutos:
-                        <input type="number" name="min" id="min" placeholder="Digite aqui">
+                    <legend>Insíra um valor para calcularmos quanto tempo no estacionamento está disponível:</legend>
+                    <p>Preço:
+                        <input type="number" step="0.01" name="valor" id="valor" placeholder="Digite aqui">
                     </p>
                     <button onclick="vaga.Conversor()">Calcular</button>
-                    <p id="res">
-                        Valor: R$ 0,00
-                    </p>
+                    <p id="res"></p>
                 </fieldset>
         </section>
     </main>
