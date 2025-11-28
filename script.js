@@ -1,31 +1,47 @@
 
-
-class Estacionamento{
-    constructor(minutos, valor){
-        this.minutos = minutos
-        this.valor = valor
+class Parquimetro{
+    constructor(valorInserido){
+        this.valor = valorInserido
+        this.troco = 0
+        this.tempo = 0
     }
 
-    Conversor(){
-        this.minutos = 0
-        this.valor = Number(document.getElementById("valor").value)
-        let res = document.getElementById("res")
-        let troco = String(this.valor.toFixed(2)).split('.')
-        res.innerText = ''
-
-        if(this.valor < 1.00){
-            res.innerText = `Valor insuficente!`
-        } else {
-            if(this.valor > 1.00 && this.valor < 1.75){
-                res.innerHTML = `Com <strong>R$${this.valor.toFixed(2).replace(".", ",")}</strong> você tem direito a: <strong>30 - 60</strong> minutos no Estacionamento.`
-            } else if(this.valor >= 1.75 && this.valor < 3.00){
-                res.innerHTML = `Com <strong>R$${this.valor.toFixed(2).replace(".", ",")}</strong> você tem direito a: <strong>60 - 120</strong> minutos no Estacionamento.`
-            } else {
-                res.innerHTML = `Com <strong>R$${this.valor.toFixed(2).replace(".", ",")}</strong> você tem direito a mais que <strong>120</strong>min no Estacionamento.`
-            }
+    Calcular(){
+        if(this.valor < 1){
+            return "Valor insuficiente"
         }
+
+        if(this.valor >= 1 && this.valor < 1.75){
+            this.tempo = 30
+            this.troco = (this.valor - 1).toFixed(2)
+        } else if(this.valor >= 1.75 && this.valor < 3){
+            this.tempo = 60
+            this.troco = (this.valor - 1.75).toFixed(2)
+        } else {
+            this.tempo = 120
+            this.troco = (this.valor - 3).toFixed(2)
+        }
+
+        return this.FormatarMensagem()
+    }
+
+    FormatarMensagem(){
+        let msg = `<p>Tempo adiquirido: ${this.tempo}min.</p>`
+        msg += `<p>Troco: R$ ${this.troco}</p>`
+        return msg
     }
 }
 
+document.getElementById("calcular").addEventListener("click", () => {
+    const valor = Number.parseFloat(document.getElementById("valor").value)
+    const resultado = document.getElementById("resultado")
 
-const vaga = new Estacionamento()
+    if(isNaN(valor)){
+        resultado.innerHTML = `<p>Digite um valor válido!</p>`
+        return
+    }
+
+    const parq = new Parquimetro(valor)
+    resultado.innerHTML = parq.Calcular()
+})
+
