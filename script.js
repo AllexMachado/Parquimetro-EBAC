@@ -8,7 +8,7 @@ class Parquimetro{
 
     Calcular(){
         if(this.valor < 1){
-            return `<p>Valor insuficiente</p>`
+            return `<p>Valor Insuficiente</p>`
         }
 
         if(this.valor >= 1 && this.valor < 1.75){
